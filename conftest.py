@@ -15,3 +15,8 @@ def collector_one_book(collector):
 def collector_one_book_with_genre(collector_one_book):
     collector_one_book.set_book_genre('Гордость и предубеждение и зомби', 'Фантастика')
     return collector_one_book
+
+@pytest.fixture(scope="function")
+def collector_one_book_in_favorites(collector_one_book):
+    collector_one_book.add_book_in_favorites('Гордость и предубеждение и зомби')
+    return collector_one_book
