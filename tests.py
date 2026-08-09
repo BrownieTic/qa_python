@@ -12,10 +12,7 @@ class TestBooksCollector:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
     # затем, что тестируем add_two_books - добавление двух книг
-    def test_add_new_book_add_two_books(self):
-        # создаем экземпляр (объект) класса BooksCollector
-        collector = BooksCollector()
-
+    def test_add_new_book_add_two_books(self, collector):
         # добавляем две книги
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
@@ -57,10 +54,12 @@ class TestBooksCollector:
 
     @pytest.mark.parametrize('genre', ['', 'Фентези', 'Детектив'])
     def test_get_books_with_specific_genre_get_collection_empty(self, collector_one_book_with_genre, genre):
-        assert collector_one_book_with_genre.get_books_with_specific_genre(genre) == []
+        get_books = collector_one_book_with_genre.get_books_with_specific_genre(genre)
+        assert get_books == []
 
     def test_get_books_genre_get_one_book_with_genre(self, collector_one_book_with_genre):
-        assert collector_one_book_with_genre.get_books_genre() == {'Гордость и предубеждение и зомби': 'Фантастика'}
+        get_books = collector_one_book_with_genre.get_books_genre()
+        assert get_books == {'Гордость и предубеждение и зомби': 'Фантастика'}
 
     def test_get_books_genre_full_list_get_len_not_zero(self, collector):
         n = 0
@@ -71,7 +70,8 @@ class TestBooksCollector:
             assert len(collector.get_books_genre()) == n
 
     def test_get_books_for_children_allowable_genres_get_name_book(self, collector_one_book_with_genre):
-        assert collector_one_book_with_genre.get_books_for_children() == ['Гордость и предубеждение и зомби']
+        get_books = collector_one_book_with_genre.get_books_for_children()
+        assert get_books == ['Гордость и предубеждение и зомби']
 
     @pytest.mark.parametrize('book, genre', 
                             [('Приключения Шерлока Холмса', 'Детективы'),
@@ -82,7 +82,8 @@ class TestBooksCollector:
         assert collector.get_books_for_children() == []
 
     def test_add_book_in_favorites_one_book_in_favorites(self, collector_one_book_in_favorites):
-        assert collector_one_book_in_favorites.get_list_of_favorites_books() == ['Гордость и предубеждение и зомби']
+        get_books = collector_one_book_in_favorites.get_list_of_favorites_books()
+        assert get_books == ['Гордость и предубеждение и зомби']
 
     def test_add_book_in_favorites_not_book_favorites_empty(self, collector):
         collector.add_book_in_favorites('Гордость и предубеждение и зомби')
@@ -98,4 +99,6 @@ class TestBooksCollector:
         assert len(collector.get_list_of_favorites_books()) == 1 and len(collector.get_books_genre()) == 2
 
     def test_get_list_of_favorites_books_one_book_in_favorites(self, collector_one_book_in_favorites):
-        assert collector_one_book_in_favorites.get_list_of_favorites_books() == ['Гордость и предубеждение и зомби']
+        get_books = collector_one_book_in_favorites.get_list_of_favorites_books()
+        assert get_books == ['Гордость и предубеждение и зомби']
+        
